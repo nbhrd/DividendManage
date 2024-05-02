@@ -24,7 +24,7 @@ export default function AppLayout() {
   const { setDividends, setIsLoading } = useAppContext();
   const { user } = useAuthContext();
 
-  // firestoreのデータを全て取得
+  // firestoreからログインユーザーのデータを取得
   React.useEffect(() => {
     const fetchDividends = async () => {
       try {
@@ -52,6 +52,7 @@ export default function AppLayout() {
       }
     };
     fetchDividends();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
