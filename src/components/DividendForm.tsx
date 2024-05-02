@@ -91,18 +91,17 @@ const DividendForm = ({
     setValue("stock_name", "");
   };
 
-  // 収支タイプを監視
   const currentType = watch("type");
 
   useEffect(() => {
     const newStocks = currentType === "japan" ? japanStocks : usaStocks;
     setStocks(newStocks);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentType]);
 
-  // 収支タイプに応じたカテゴリを取得
   useEffect(() => {
     setValue("date", currentDay);
-  }, [currentDay]);
+  }, [currentDay, setValue]);
 
   // 送信処理
   const onSubmit: SubmitHandler<DividendSchema> = (data) => {
@@ -142,7 +141,7 @@ const DividendForm = ({
       );
       setValue("stock_name", stockExists ? selectedDividend.stock_name : "");
     }
-  }, [selectedDividend, stocks]);
+  }, [selectedDividend, stocks, setValue]);
 
   // フォーム内容を更新
   useEffect(() => {
@@ -161,7 +160,7 @@ const DividendForm = ({
         memo: "",
       });
     }
-  }, [selectedDividend]);
+  }, [selectedDividend, currentDay, setValue, reset]);
 
   const handleDelete = () => {
     if (selectedDividend) {
