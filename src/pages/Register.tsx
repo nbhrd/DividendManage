@@ -41,7 +41,7 @@ const Register = () => {
   return (
     <>
       {user ? (
-        <Navigate to={`/DividendManage/`} />
+        <Navigate to={`/`} />
       ) : (
         <>
           <Grid>
@@ -100,7 +100,7 @@ const Register = () => {
                     fontSize: "0.9rem",
                   }}
                 >
-                  <Link href="/DividendManage/login">ログイン画面へ</Link>
+                  <Link href="/login">ログイン画面へ</Link>
                 </Box>
               </Box>
             </Paper>

@@ -149,7 +149,7 @@ export default function AppLayout() {
           </Box>
         </>
       ) : (
-        <Navigate to={`/DividendManage/login`} />
+        <Navigate to={`/login`} />
       )}
     </>
   );
