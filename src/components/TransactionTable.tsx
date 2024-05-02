@@ -15,17 +15,11 @@ import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Transaction } from "../types";
-import {
-  financeCalculations,
-  financeCalculationsDivi,
-} from "../utils/financeCalculations";
+import { financeCalculationsDivi } from "../utils/financeCalculations";
 import { Grid } from "@mui/material";
 import { formatCurrency } from "../utils/formatting";
-import IconComponents from "./common/IconComponents";
 import { compareDesc, parseISO } from "date-fns";
 import { useAppContext } from "../context/AppContext";
-import useMonthlyTransactions from "../hooks/useMonthlyTransactions";
 import useMonthlyDividends from "../hooks/useMonthlyDividends";
 
 interface TransactionTableHeadProps {
@@ -139,8 +133,7 @@ function FinancialItem({ title, value, color }: FinancialItemProps) {
   );
 }
 
-interface TransactionTableProps {}
-export default function TransactionTable({}: TransactionTableProps) {
+export default function TransactionTable() {
   const { onDeleteDividend } = useAppContext();
   const monthlyDividends = useMonthlyDividends();
 

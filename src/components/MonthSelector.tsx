@@ -6,14 +6,7 @@ import { addMonths } from "date-fns";
 import { ja } from "date-fns/locale";
 import { useAppContext } from "../context/AppContext";
 
-interface MonthSelectorProps {
-  // currentMonth: Date;
-  // setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
-}
-
-const MonthSelector = ({}: // currentMonth,
-// setCurrentMonth,
-MonthSelectorProps) => {
+const MonthSelector = () => {
   const { currentMonth, setCurrentMonth } = useAppContext();
 
   const handleDateChange = (newDate: Date | null) => {

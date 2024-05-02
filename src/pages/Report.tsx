@@ -3,7 +3,6 @@ import MonthSelector from "../components/MonthSelector";
 import CategoryChart from "../components/CategoryChart";
 import BarChart from "../components/BarChart";
 import TransactionTable from "../components/TransactionTable";
-import { useAppContext } from "../context/AppContext";
 
 const Report = () => {
   const commonPaperStyle = {
@@ -12,8 +11,6 @@ const Report = () => {
     flexDirection: "column",
     p: 2,
   };
-
-  const {} = useAppContext();
 
   return (
     <Grid container spacing={2}>

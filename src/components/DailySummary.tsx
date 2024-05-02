@@ -1,10 +1,7 @@
 import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
-import React from "react";
-import { Dividend, Transaction } from "../types";
-import {
-  financeCalculations,
-  financeCalculationsDivi,
-} from "../utils/financeCalculations";
+
+import { Dividend } from "../types";
+import { financeCalculationsDivi } from "../utils/financeCalculations";
 import { formatCurrency } from "../utils/formatting";
 
 interface DailySummaryProps {
@@ -13,7 +10,6 @@ interface DailySummaryProps {
 }
 
 const DailySummary = ({ dailyDividends, columns }: DailySummaryProps) => {
-  // const { income, expense, balance } = financeCalculations(dailyTransactions);
   const { japan, usa, balance } = financeCalculationsDivi(dailyDividends);
   const isThreeColumnsLayout = columns === 3;
 

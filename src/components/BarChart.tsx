@@ -10,15 +10,10 @@ import {
   ChartData,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { Transaction } from "../types";
-import {
-  calculateDailyBalances,
-  calculateDailyDividends,
-} from "../utils/financeCalculations";
+import { calculateDailyDividends } from "../utils/financeCalculations";
 import { Box, Typography, useTheme } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useAppContext } from "../context/AppContext";
-import useMonthlyTransactions from "../hooks/useMonthlyTransactions";
 import useMonthlyDividends from "../hooks/useMonthlyDividends";
 
 ChartJS.register(

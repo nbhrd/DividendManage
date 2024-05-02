@@ -4,11 +4,8 @@ import jaLocale from "@fullcalendar/core/locales/ja";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import "../calendar.css";
 import { DatesSetArg, EventContentArg } from "@fullcalendar/core";
-import { Asset, Balance, CalendarContent, Transaction } from "../types";
-import {
-  calculateDailyBalances,
-  calculateDailyDividends,
-} from "../utils/financeCalculations";
+import { Asset, CalendarContent } from "../types";
+import { calculateDailyDividends } from "../utils/financeCalculations";
 import { formatCurrency } from "../utils/formatting";
 import { useTheme } from "@mui/material";
 import { isSameMonth } from "date-fns";

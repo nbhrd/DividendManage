@@ -2,12 +2,9 @@ import { Card, CardContent, Grid, Stack, Typography } from "@mui/material";
 import TripOriginIcon from "@mui/icons-material/TripOrigin";
 import PublicIcon from "@mui/icons-material/Public";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import {
-  financeCalculations,
-  financeCalculationsDivi,
-} from "../utils/financeCalculations";
+import { financeCalculationsDivi } from "../utils/financeCalculations";
 import { formatCurrency } from "../utils/formatting";
-import useMonthlyTransactions from "../hooks/useMonthlyTransactions";
+
 import useMonthlyDividends from "../hooks/useMonthlyDividends";
 
 const MonthlySummary = () => {

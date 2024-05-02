@@ -11,7 +11,7 @@ import SideBar from "../common/SideBar";
 import { useAppContext } from "../../context/AppContext";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebase";
-import { Dividend, Transaction } from "../../types";
+import { Dividend } from "../../types";
 import { isFireStoreError } from "../../utils/errorHandling";
 import { useAuthContext } from "../../context/AuthContext";
 import { Button } from "@mui/material";
@@ -21,8 +21,7 @@ import { FirebaseError } from "firebase/app";
 const drawerWidth = 240;
 
 export default function AppLayout() {
-  const { setDividends, setIsLoading, transactions, isLoading } =
-    useAppContext();
+  const { setDividends, setIsLoading } = useAppContext();
   const { user } = useAuthContext();
 
   // firestoreのデータを全て取得
