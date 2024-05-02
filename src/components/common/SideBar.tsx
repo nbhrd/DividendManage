@@ -34,8 +34,8 @@ const SideBar = ({
   handleDrawerClose,
 }: SideBarProps) => {
   const MenuItems: menuItem[] = [
-    { text: "Home", path: "/", icon: HomeIcon },
-    { text: "Report", path: "/report", icon: EqualizerIcon },
+    { text: "Home", path: "/DividendManage/", icon: HomeIcon },
+    { text: "Report", path: "/DividendManage/report", icon: EqualizerIcon },
   ];
   const baseLinkStyle: CSSProperties = {
     textDecoration: "none",

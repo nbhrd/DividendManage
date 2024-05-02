@@ -21,14 +21,14 @@ function App() {
           <CssBaseline />
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<AppLayout />}>
+              <Route path="/DividendManage" element={<AppLayout />}>
                 <Route index element={<Home />} />
-                <Route path="/report" element={<Report />} />
+                <Route path="/DividendManage/report" element={<Report />} />
 
                 <Route path="*" element={<NoMatch />} />
               </Route>
-              <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
+              <Route path="/DividendManage/register" element={<Register />} />
+              <Route path="/DividendManage/login" element={<Login />} />
             </Routes>
           </BrowserRouter>
         </ThemeProvider>
