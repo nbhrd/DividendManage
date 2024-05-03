@@ -2,14 +2,14 @@ import { Card, CardContent, Grid, Stack, Typography } from "@mui/material";
 import TripOriginIcon from "@mui/icons-material/TripOrigin";
 import PublicIcon from "@mui/icons-material/Public";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import { financeCalculationsDivi } from "../utils/financeCalculations";
+import { financeCalculations } from "../utils/financeCalculations";
 import { formatCurrency } from "../utils/formatting";
 
 import useMonthlyDividends from "../hooks/useMonthlyDividends";
 
 const MonthlySummary = () => {
   const monthlyDividends = useMonthlyDividends();
-  const { japan, usa, balance } = financeCalculationsDivi(monthlyDividends);
+  const { japan, usa, balance } = financeCalculations(monthlyDividends);
 
   return (
     <Grid container spacing={{ xs: 1, sm: 2 }} mb={2}>

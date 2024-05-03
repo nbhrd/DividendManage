@@ -1,22 +1,6 @@
 import { Asset, Balance, Dividend, Transaction } from "../types";
 
-// 削除確認
-export function financeCalculations(transactions: Transaction[]): Balance {
-  return transactions.reduce(
-    (acc, transaction) => {
-      if (transaction.type === "income") {
-        acc.income += transaction.amount;
-      } else {
-        acc.expense += transaction.amount;
-      }
-      acc.balance = acc.income - acc.expense;
-      return acc;
-    },
-    { income: 0, expense: 0, balance: 0 }
-  );
-}
-
-export function financeCalculationsDivi(dividends: Dividend[]): Asset {
+export function financeCalculations(dividends: Dividend[]): Asset {
   return dividends.reduce(
     (acc, dividend) => {
       if (dividend.type === "japan") {
