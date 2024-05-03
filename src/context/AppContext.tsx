@@ -13,8 +13,6 @@ import { db } from "../firebase";
 import { isFireStoreError } from "../utils/errorHandling";
 
 interface AppContextType {
-  transactions: Transaction[];
-  setTransactions: React.Dispatch<React.SetStateAction<Transaction[]>>;
   dividends: Dividend[];
   setDividends: React.Dispatch<React.SetStateAction<Dividend[]>>;
   currentMonth: Date;
@@ -35,8 +33,6 @@ interface AppContextType {
 export const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppContextProvider = ({ children }: { children: ReactNode }) => {
-  // 削除確認
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [dividends, setDividends] = useState<Dividend[]>([]);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [isLoading, setIsLoading] = useState(true);
@@ -115,8 +111,6 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   return (
     <AppContext.Provider
       value={{
-        transactions,
-        setTransactions,
         dividends,
         setDividends,
         currentMonth,
