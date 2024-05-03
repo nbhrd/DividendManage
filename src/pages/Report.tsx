@@ -1,6 +1,6 @@
 import { Grid, Paper } from "@mui/material";
 import MonthSelector from "../components/MonthSelector";
-import CategoryChart from "../components/CategoryChart";
+import PieChart from "../components/PieChart";
 import BarChart from "../components/BarChart";
 import TransactionTable from "../components/TransactionTable";
 
@@ -19,7 +19,7 @@ const Report = () => {
       </Grid>
       <Grid item xs={12} md={4}>
         <Paper sx={commonPaperStyle}>
-          <CategoryChart />
+          <PieChart />
         </Paper>
       </Grid>
       <Grid item xs={12} md={8}>

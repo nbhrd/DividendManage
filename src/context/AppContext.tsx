@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from "react";
-import { Dividend, Transaction } from "../types";
+import { Dividend } from "../types";
 import { useMediaQuery, useTheme } from "@mui/material";
 import { DividendSchema } from "../validations/schema";
 import {

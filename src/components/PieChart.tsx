@@ -25,7 +25,7 @@ import useMonthlyDividends from "../hooks/useMonthlyDividends";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const CategoryChart = () => {
+const PieChart = () => {
   const { isLoading } = useAppContext();
   const monthlyDividends = useMonthlyDividends();
   const theme = useTheme();
@@ -53,6 +53,40 @@ const CategoryChart = () => {
     responsive: true,
   };
 
+  const japanStockBackgroundColorList = [
+    "rgba(61, 72, 139, 0.4)",
+    "rgba(74, 113, 188, 0.4)",
+    "rgba(88, 159, 239, 0.4)",
+    "rgba(144, 208, 255, 0.4)",
+    "rgba(255, 80, 80, 0.4)",
+    "rgba(255, 143, 134, 0.4)",
+    "rgba(255, 206, 191, 0.4)",
+    "rgba(231, 231, 234, 0.4)",
+    "rgba(181, 181, 184, 0.4)",
+    "rgba(133, 133, 136, 0.4)",
+  ];
+
+  const japanStockBorderColorList = [
+    "rgba(61, 72, 139, 0.8)",
+    "rgba(74, 113, 188, 0.8)",
+    "rgba(88, 159, 239, 0.8)",
+    "rgba(144, 208, 255, 0.8)",
+    "rgba(255, 80, 80, 0.8)",
+    "rgba(255, 143, 134, 0.8)",
+    "rgba(255, 206, 191, 0.8)",
+    "rgba(231, 231, 234, 0.8)",
+    "rgba(181, 181, 184, 0.8)",
+    "rgba(133, 133, 136, 0.8)",
+  ];
+
+  const backgroundColorData = [];
+  const borderColorData = [];
+  for (let i = 0; i < dividendLabels.length; i++) {
+    const tmp_i = i % japanStockBackgroundColorList.length;
+    backgroundColorData.push(japanStockBackgroundColorList[tmp_i]);
+    borderColorData.push(japanStockBorderColorList[tmp_i]);
+  }
+
   const japanStockColor: Record<string, string> = {
     "8901 - 積水ハウス": theme.palette.incomeCategoryColor.給与,
     "1605 - INPEX": theme.palette.incomeCategoryColor.副収入,
@@ -76,20 +110,8 @@ const CategoryChart = () => {
     datasets: [
       {
         data: categoryValues,
-        // backgroundColor: [
-        //   "rgba(255, 99, 132, 0.2)",
-        //   "rgba(54, 162, 235, 0.2)",
-        //   "rgba(255, 206, 86, 0.2)",
-        //   "rgba(75, 192, 192, 0.2)",
-        //   "rgba(153, 102, 255, 0.2)",
-        //   "rgba(255, 159, 64, 0.2)",
-        // ],
-        backgroundColor: dividendLabels.map((dividend) => {
-          return getDividendColor(dividend);
-        }),
-        borderColor: dividendLabels.map((dividend) => {
-          return getDividendColor(dividend);
-        }),
+        backgroundColor: backgroundColorData,
+        borderColor: borderColorData,
         borderWidth: 1,
       },
     ],
@@ -131,4 +153,4 @@ const CategoryChart = () => {
   );
 };
 
-export default CategoryChart;
+export default PieChart;
