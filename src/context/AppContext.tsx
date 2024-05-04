@@ -17,6 +17,8 @@ interface AppContextType {
   setDividends: React.Dispatch<React.SetStateAction<Dividend[]>>;
   currentMonth: Date;
   setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
+  usdJPY: string;
+  setUsdJpy: React.Dispatch<React.SetStateAction<string>>;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   isMobile: boolean;
@@ -35,6 +37,7 @@ export const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   const [dividends, setDividends] = useState<Dividend[]>([]);
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [usdJPY, setUsdJpy] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -115,6 +118,8 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
         setDividends,
         currentMonth,
         setCurrentMonth,
+        usdJPY,
+        setUsdJpy,
         isLoading,
         setIsLoading,
         isMobile,

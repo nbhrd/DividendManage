@@ -14,44 +14,46 @@ import { db } from "../../firebase";
 import { Dividend } from "../../types";
 import { isFireStoreError } from "../../utils/errorHandling";
 import { useAuthContext } from "../../context/AuthContext";
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { getAuth, signOut } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 
 const drawerWidth = 240;
 
 export default function AppLayout() {
-  const { setDividends, setIsLoading } = useAppContext();
+  const { setDividends, usdJPY, setUsdJpy, setIsLoading } = useAppContext();
   const { user } = useAuthContext();
 
   // firestoreからログインユーザーのデータを取得
   React.useEffect(() => {
-    const fetchDividends = async () => {
-      try {
-        const q = query(
-          collection(db, "Dividends"),
-          where("uid", "==", user?.uid)
-        );
-        const querySnapshot = await getDocs(q);
-        const dividendsData = querySnapshot.docs.map((doc) => {
-          return {
-            ...doc.data(),
-            id: doc.id,
-          } as Dividend;
-        });
+    if (user) {
+      const fetchDividends = async () => {
+        try {
+          const q = query(
+            collection(db, "Dividends"),
+            where("uid", "==", user?.uid)
+          );
+          const querySnapshot = await getDocs(q);
+          const dividendsData = querySnapshot.docs.map((doc) => {
+            return {
+              ...doc.data(),
+              id: doc.id,
+            } as Dividend;
+          });
 
-        setDividends(dividendsData);
-      } catch (err) {
-        if (isFireStoreError(err)) {
-          console.error("firestoreのエラー:", err);
-        } else {
-          console.error("一般的なエラー:", err);
+          setDividends(dividendsData);
+        } catch (err) {
+          if (isFireStoreError(err)) {
+            console.error("firestoreのエラー:", err);
+          } else {
+            console.error("一般的なエラー:", err);
+          }
+        } finally {
+          setIsLoading(false);
         }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchDividends();
+      };
+      fetchDividends();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
@@ -82,6 +84,10 @@ export default function AppLayout() {
         console.error(e);
       }
     }
+  };
+
+  const handleUsdJpy = (value: string) => {
+    setUsdJpy(value);
   };
 
   return (
@@ -116,6 +122,18 @@ export default function AppLayout() {
                 <Typography variant="h6" noWrap component="div">
                   配当管理アプリ
                 </Typography>
+                <TextField
+                  label="ドル円"
+                  variant="filled"
+                  size="small"
+                  value={usdJPY}
+                  onChange={(e) => handleUsdJpy(e.target.value)}
+                  sx={{
+                    marginLeft: 5,
+                    borderRadius: "5px",
+                    backgroundColor: "white",
+                  }}
+                />
                 <div style={{ flexGrow: 1 }}></div>
                 <Button
                   onClick={handleLogout}

@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
