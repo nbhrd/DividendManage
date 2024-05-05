@@ -22,13 +22,13 @@ import { compareDesc, parseISO } from "date-fns";
 import { useAppContext } from "../context/AppContext";
 import useMonthlyDividends from "../hooks/useMonthlyDividends";
 
-interface TransactionTableHeadProps {
+interface DividendTableHeadProps {
   numSelected: number;
   onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
   rowCount: number;
 }
 
-function TransactionTableHead(props: TransactionTableHeadProps) {
+function DividendTableHead(props: DividendTableHeadProps) {
   const { onSelectAllClick, numSelected, rowCount } = props;
 
   return (
@@ -54,12 +54,12 @@ function TransactionTableHead(props: TransactionTableHeadProps) {
   );
 }
 
-interface TransactionTableToolbarProps {
+interface DividendTableToolbarProps {
   numSelected: number;
   onDelete: () => void;
 }
 
-function TransactionTableToolbar(props: TransactionTableToolbarProps) {
+function DividendTableToolbar(props: DividendTableToolbarProps) {
   const { numSelected, onDelete } = props;
 
   return (
@@ -133,7 +133,7 @@ function FinancialItem({ title, value, color }: FinancialItemProps) {
   );
 }
 
-export default function TransactionTable() {
+export default function DividendTable() {
   const { onDeleteDividend } = useAppContext();
   const monthlyDividends = useMonthlyDividends();
 
@@ -227,7 +227,7 @@ export default function TransactionTable() {
             color={theme.palette.balanceColor.main}
           />
         </Grid>
-        <TransactionTableToolbar
+        <DividendTableToolbar
           numSelected={selected.length}
           onDelete={handleDelete}
         />
@@ -237,7 +237,7 @@ export default function TransactionTable() {
             aria-labelledby="tableTitle"
             size={"medium"}
           >
-            <TransactionTableHead
+            <DividendTableHead
               numSelected={selected.length}
               onSelectAllClick={handleSelectAllClick}
               rowCount={monthlyDividends.length}
