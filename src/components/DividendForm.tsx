@@ -76,7 +76,7 @@ const DividendForm = ({
     register,
   } = useForm<DividendSchema>({
     defaultValues: {
-      uid: user?.uid,
+      user_id: user?.uid,
       type: "japan",
       stock_name: "",
       date: currentDay,
@@ -189,8 +189,8 @@ const DividendForm = ({
       </Box>
       {/* フォーム要素 */}
       <Box component={"form"} onSubmit={handleSubmit(onSubmit)}>
-        {/* UID */}
-        <input type="hidden" {...register("uid", { value: user?.uid })} />
+        {/* USERID */}
+        <input type="hidden" {...register("user_id", { value: user?.uid })} />
 
         <Stack spacing={2}>
           {/* 収支切り替えボタン */}

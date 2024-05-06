@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const dividendSchema = z.object({
-  uid: z.string(),
+  user_id: z.string(),
   type: z.enum(["japan", "usa"]),
   stock_name: z
     .union([z.string(), z.literal("")])

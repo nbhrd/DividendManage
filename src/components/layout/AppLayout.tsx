@@ -31,7 +31,7 @@ export default function AppLayout() {
         try {
           const q = query(
             collection(db, "Dividends"),
-            where("uid", "==", user?.uid)
+            where("user_id", "==", user?.uid)
           );
           const querySnapshot = await getDocs(q);
           const dividendsData = querySnapshot.docs.map((doc) => {
