@@ -2,6 +2,7 @@ import "./App.css";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import Report from "./pages/Report";
+import Stocks from "./pages/Stocks";
 import NoMatch from "./pages/NoMatch";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -23,7 +24,7 @@ function App() {
               <Route path="/" element={<AppLayout />}>
                 <Route index element={<Home />} />
                 <Route path="/report" element={<Report />} />
-
+                <Route path="/stocks" element={<Stocks />} />
                 <Route path="*" element={<NoMatch />} />
               </Route>
               <Route path="/register" element={<Register />} />

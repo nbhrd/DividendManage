@@ -1,8 +1,8 @@
-import { DividendType } from "../types";
+import { StockType } from "../types/type";
 
 export function getChartColors(
   length: number,
-  stock_type: DividendType
+  type: StockType
 ): { backgroundColorData: string[]; borderColorData: string[] } {
   const colorData = {
     japan: {
@@ -59,7 +59,7 @@ export function getChartColors(
     },
   };
 
-  const selectedColors = colorData[stock_type];
+  const selectedColors = colorData[type];
 
   const backgroundColorData: string[] = [];
   const borderColorData: string[] = [];

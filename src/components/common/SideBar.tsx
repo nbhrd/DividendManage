@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import EqualizerIcon from "@mui/icons-material/Equalizer";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import React, { CSSProperties } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -34,17 +35,20 @@ const SideBar = ({
   handleDrawerClose,
 }: SideBarProps) => {
   const MenuItems: menuItem[] = [
-    { text: "Home", path: "/", icon: HomeIcon },
-    { text: "Report", path: "/report", icon: EqualizerIcon },
+    { text: "ホーム", path: "/", icon: HomeIcon },
+    { text: "レポート", path: "/report", icon: EqualizerIcon },
   ];
+
   const baseLinkStyle: CSSProperties = {
     textDecoration: "none",
     color: "inherit",
     display: "block",
   };
+
   const activeLinkStyle: CSSProperties = {
     backgroundColor: "rgba(0, 0, 0, 0.08",
   };
+
   const drawer = (
     <div>
       <Toolbar />
@@ -69,6 +73,22 @@ const SideBar = ({
           </NavLink>
         ))}
       </List>
+      <Divider />
+      <NavLink
+        to="/stocks"
+        style={({ isActive }) => {
+          return { ...baseLinkStyle, ...(isActive ? activeLinkStyle : {}) };
+        }}
+      >
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <MonetizationOnIcon />
+            </ListItemIcon>
+            <ListItemText primary="銘柄管理" />
+          </ListItemButton>
+        </ListItem>
+      </NavLink>
     </div>
   );
 

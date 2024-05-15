@@ -48,7 +48,6 @@ function DividendTableHead(props: DividendTableHeadProps) {
         <TableCell align={"left"}>日付</TableCell>
         <TableCell align={"left"}>銘柄名</TableCell>
         <TableCell align={"left"}>金額</TableCell>
-        <TableCell align={"left"}>メモ</TableCell>
       </TableRow>
     </TableHead>
   );
@@ -282,7 +281,6 @@ export default function DividendTable() {
                       {dividend.stock_name}
                     </TableCell>
                     <TableCell align="left">{dividend.amount}</TableCell>
-                    <TableCell align="left">{dividend.memo}</TableCell>
                   </TableRow>
                 );
               })}

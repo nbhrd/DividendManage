@@ -15,7 +15,7 @@ import {
 import NotesIcon from "@mui/icons-material/Notes";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DailySummary from "./DailySummary";
-import { Dividend } from "../types";
+import { Dividend } from "../types/type";
 import { formatCurrency } from "../utils/formatting";
 import { useAppContext } from "../context/AppContext";
 
@@ -126,11 +126,6 @@ const DividendMenu = ({
                               gutterBottom
                             >
                               {dividend.stock_name}
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={4}>
-                            <Typography variant="body2" gutterBottom>
-                              {dividend.memo}
                             </Typography>
                           </Grid>
                           <Grid item xs={4.5}>

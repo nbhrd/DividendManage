@@ -11,7 +11,7 @@ import SideBar from "../common/SideBar";
 import { useAppContext } from "../../context/AppContext";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebase";
-import { Dividend } from "../../types";
+import { Dividend, Stock } from "../../types/type";
 import { isFireStoreError } from "../../utils/errorHandling";
 import { useAuthContext } from "../../context/AuthContext";
 import { Button, TextField } from "@mui/material";
@@ -21,10 +21,11 @@ import { FirebaseError } from "firebase/app";
 const drawerWidth = 240;
 
 export default function AppLayout() {
-  const { setDividends, usdJPY, setUsdJpy, setIsLoading } = useAppContext();
+  const { setDividends, setStocks, usdJPY, setUsdJpy, setIsLoading } =
+    useAppContext();
   const { user } = useAuthContext();
 
-  // firestoreからログインユーザーのデータを取得
+  // firestoreからログインユーザーの配当データを取得
   React.useEffect(() => {
     if (user) {
       const fetchDividends = async () => {
@@ -55,6 +56,34 @@ export default function AppLayout() {
       fetchDividends();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
+  React.useEffect(() => {
+    const fetchStocks = async () => {
+      try {
+        const q = query(
+          collection(db, "Stocks"),
+          where("user_id", "==", user?.uid)
+        );
+        const querySnapshot = await getDocs(q);
+        const stocksData = querySnapshot.docs.map((doc) => {
+          return {
+            ...doc.data(),
+            id: doc.id,
+          } as Stock;
+        });
+
+        setStocks(stocksData);
+      } catch (err) {
+        if (isFireStoreError(err)) {
+          console.error("firestoreのエラー:", err);
+        } else {
+          console.error("一般的なエラー:", err);
+        }
+      } finally {
+      }
+    };
+    fetchStocks();
   }, [user]);
 
   const [mobileOpen, setMobileOpen] = React.useState(false);

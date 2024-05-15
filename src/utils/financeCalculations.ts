@@ -1,4 +1,4 @@
-import { Asset, Dividend } from "../types";
+import { Asset, Dividend } from "../types/type";
 
 export function financeCalculations(dividends: Dividend[]): Asset {
   return dividends.reduce(

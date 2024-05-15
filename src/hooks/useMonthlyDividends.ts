@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useAppContext } from "../context/AppContext";
 import { formatMonth } from "../utils/formatting";
-import { Dividend } from "../types";
+import { Dividend } from "../types/type";
 
 const useMonthlyDividends = (): Dividend[] => {
   const { dividends, currentMonth } = useAppContext();

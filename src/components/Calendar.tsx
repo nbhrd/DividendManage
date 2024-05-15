@@ -4,7 +4,7 @@ import jaLocale from "@fullcalendar/core/locales/ja";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import "../calendar.css";
 import { DatesSetArg, EventContentArg } from "@fullcalendar/core";
-import { Asset, CalendarContent } from "../types";
+import { Asset, CalendarContent } from "../types/type";
 import { calculateDailyDividends } from "../utils/financeCalculations";
 import { formatCurrency } from "../utils/formatting";
 import { useTheme } from "@mui/material";

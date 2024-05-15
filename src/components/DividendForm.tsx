@@ -18,8 +18,8 @@ import React, { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close"; // 閉じるボタン用のアイコン
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Dividend, JapanStock, UsaStock } from "../types";
-import { DividendSchema, dividendSchema } from "../validations/schema";
+import { Dividend, Stock, StockType } from "../types/type";
+import { DividendSchema, dividendSchema } from "../validations/dividendSchema";
 import { useAppContext } from "../context/AppContext";
 import { useAuthContext } from "../context/AuthContext";
 
@@ -31,12 +31,6 @@ interface DividendFormProps {
   setSelectedDividend: React.Dispatch<React.SetStateAction<Dividend | null>>;
   isDialogOpen: boolean;
   setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-type JapanUsa = "japan" | "usa";
-
-interface StockItem {
-  label: JapanStock | UsaStock;
 }
 
 const DividendForm = ({
@@ -51,20 +45,13 @@ const DividendForm = ({
   const { user } = useAuthContext();
 
   const formWidth = 320;
-  const { onSaveDividend, onDeleteDividend, onUpdateDividend, isMobile } =
-    useAppContext();
-
-  const japanStocks: StockItem[] = [
-    { label: "8901 - 積水ハウス" },
-    { label: "1605 - INPEX" },
-  ];
-
-  const usaStocks: StockItem[] = [
-    { label: "VZ - ベライゾン" },
-    { label: "MMM - 3M" },
-  ];
-
-  const [stocks, setStocks] = useState(japanStocks);
+  const {
+    stocks,
+    onSaveDividend,
+    onDeleteDividend,
+    onUpdateDividend,
+    isMobile,
+  } = useAppContext();
 
   const {
     control,
@@ -81,21 +68,22 @@ const DividendForm = ({
       stock_name: "",
       date: currentDay,
       amount: 0,
-      memo: "",
     },
     resolver: zodResolver(dividendSchema),
   });
 
-  const japanUsaToggle = (type: JapanUsa) => {
+  const japanUsaToggle = (type: StockType) => {
     setValue("type", type);
     setValue("stock_name", "");
   };
 
   const currentType = watch("type");
+  let currentStocks: Stock[] = stocks.filter(
+    (stock) => stock.type === currentType
+  );
 
   useEffect(() => {
-    const newStocks = currentType === "japan" ? japanStocks : usaStocks;
-    setStocks(newStocks);
+    currentStocks = stocks.filter((stock) => stock.type === currentType);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentType]);
 
@@ -129,7 +117,6 @@ const DividendForm = ({
       date: currentDay,
       amount: 0,
       stock_name: "",
-      memo: "",
     });
   };
 
@@ -137,7 +124,7 @@ const DividendForm = ({
     // 選択肢が更新されたか確認
     if (selectedDividend) {
       const stockExists = stocks.some(
-        (stock) => stock.label === selectedDividend.stock_name
+        (stock) => stock.name === selectedDividend.stock_name
       );
       setValue("stock_name", stockExists ? selectedDividend.stock_name : "");
     }
@@ -150,14 +137,12 @@ const DividendForm = ({
       setValue("date", selectedDividend.date);
       setValue("amount", selectedDividend.amount);
       setValue("stock_name", selectedDividend.stock_name);
-      setValue("memo", selectedDividend.memo);
     } else {
       reset({
         type: "japan",
         date: currentDay,
         amount: 0,
         stock_name: "",
-        memo: "",
       });
     }
   }, [selectedDividend, currentDay, setValue, reset]);
@@ -250,9 +235,9 @@ const DividendForm = ({
                   id="category-select"
                   label="銘柄名"
                 >
-                  {stocks.map((stock, index) => (
-                    <MenuItem key={index} value={stock.label}>
-                      {stock.label}
+                  {currentStocks.map((stock, index) => (
+                    <MenuItem key={index} value={stock.name}>
+                      {stock.code} {stock.name}
                     </MenuItem>
                   ))}
                 </Select>
@@ -281,21 +266,6 @@ const DividendForm = ({
                 />
               );
             }}
-          />
-
-          {/* 内容 */}
-          <Controller
-            name="memo"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="メモ"
-                type="text"
-                error={!!errors.memo}
-                helperText={errors.memo?.message}
-              />
-            )}
           />
 
           <Button

@@ -18,7 +18,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { DividendType } from "../types";
+import { StockType } from "../types/type";
 import { useAppContext } from "../context/AppContext";
 import useMonthlyDividends from "../hooks/useMonthlyDividends";
 import { getChartColors } from "../utils/getChartColors";
@@ -29,10 +29,10 @@ const PieChart = () => {
   const { isLoading } = useAppContext();
   const monthlyDividends = useMonthlyDividends();
   const theme = useTheme();
-  const [selectedType, setSelectedType] = useState<DividendType>("japan");
+  const [selectedType, setSelectedType] = useState<StockType>("japan");
 
-  const handleChange = (e: SelectChangeEvent<DividendType>) => {
-    setSelectedType(e.target.value as DividendType);
+  const handleChange = (e: SelectChangeEvent<StockType>) => {
+    setSelectedType(e.target.value as StockType);
   };
 
   const categorySums = monthlyDividends

@@ -4,7 +4,7 @@ import MonthlySummary from "../components/MonthlySummary";
 import Calendar from "../components/Calendar";
 import DividendMenu from "../components/DividendMenu";
 import DividendForm from "../components/DividendForm";
-import { Dividend } from "../types";
+import { Dividend } from "../types/type";
 import { format } from "date-fns";
 import { DateClickArg } from "@fullcalendar/interaction";
 import { useAppContext } from "../context/AppContext";
