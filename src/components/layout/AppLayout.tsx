@@ -5,6 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
+import LogoutIcon from "@mui/icons-material/Logout";
 import Typography from "@mui/material/Typography";
 import { Navigate, Outlet } from "react-router-dom";
 import SideBar from "../common/SideBar";
@@ -148,8 +149,13 @@ export default function AppLayout() {
                 >
                   <MenuIcon />
                 </IconButton>
-                <Typography variant="h6" noWrap component="div">
-                  配当管理アプリ
+                <Typography
+                  variant="h6"
+                  noWrap
+                  component="div"
+                  sx={{ fontSize: { xs: "1rem", sm: "1.2rem" } }}
+                >
+                  配当管理
                 </Typography>
                 <TextField
                   label="ドル円"
@@ -164,12 +170,8 @@ export default function AppLayout() {
                   }}
                 />
                 <div style={{ flexGrow: 1 }}></div>
-                <Button
-                  onClick={handleLogout}
-                  variant="outlined"
-                  style={{ backgroundColor: "white" }}
-                >
-                  ログアウト
+                <Button onClick={handleLogout} variant="outlined">
+                  <LogoutIcon sx={{ color: "white" }} />
                 </Button>
               </Toolbar>
             </AppBar>
