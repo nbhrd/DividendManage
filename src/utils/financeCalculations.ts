@@ -4,9 +4,9 @@ export function financeCalculations(dividends: Dividend[]): Asset {
   return dividends.reduce(
     (acc, dividend) => {
       if (dividend.type === "japan") {
-        acc.japan += dividend.amount;
+        acc.japan += parseFloat(dividend.amount);
       } else {
-        acc.usa += dividend.amount;
+        acc.usa += parseFloat(dividend.amount);
       }
       acc.balance = acc.japan + acc.usa;
       return acc;
@@ -25,9 +25,9 @@ export function calculateDailyDividends(
     }
 
     if (dividend.type === "japan") {
-      acc[day].japan += dividend.amount;
+      acc[day].japan += parseFloat(dividend.amount);
     } else if ("usa") {
-      acc[day].usa += dividend.amount;
+      acc[day].usa += parseFloat(dividend.amount);
     }
 
     acc[day].balance = acc[day].japan + acc[day].usa;

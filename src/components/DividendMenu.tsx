@@ -137,7 +137,8 @@ const DividendMenu = ({
                                 wordBreak: "break-all",
                               }}
                             >
-                              ¥{formatCurrency(dividend.amount)}
+                              {dividend.type === "japan" ? "¥" : "$"}
+                              {formatCurrency(parseFloat(dividend.amount))}
                             </Typography>
                           </Grid>
                         </Grid>

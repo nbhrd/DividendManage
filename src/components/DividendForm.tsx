@@ -67,7 +67,7 @@ const DividendForm = ({
       type: "japan",
       stock_name: "",
       date: currentDay,
-      amount: 0,
+      amount: "",
     },
     resolver: zodResolver(dividendSchema),
   });
@@ -115,7 +115,7 @@ const DividendForm = ({
     reset({
       type: "japan",
       date: currentDay,
-      amount: 0,
+      amount: "",
       stock_name: "",
     });
   };
@@ -141,7 +141,7 @@ const DividendForm = ({
       reset({
         type: "japan",
         date: currentDay,
-        amount: 0,
+        amount: "",
         stock_name: "",
       });
     }
@@ -254,13 +254,9 @@ const DividendForm = ({
               return (
                 <TextField
                   {...field}
-                  value={field.value === 0 ? "" : field.value}
-                  onChange={(e) => {
-                    const newValue = parseInt(e.target.value, 10) || 0;
-                    field.onChange(newValue);
-                  }}
+                  value={field.value === "" ? "" : field.value}
                   label="金額"
-                  type="number"
+                  type="text"
                   error={!!errors.amount}
                   helperText={errors.amount?.message}
                 />

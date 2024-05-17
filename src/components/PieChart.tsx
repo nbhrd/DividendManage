@@ -41,7 +41,7 @@ const PieChart = () => {
       if (!acc[dividend.stock_name]) {
         acc[dividend.stock_name] = 0;
       }
-      acc[dividend.stock_name] += dividend.amount;
+      acc[dividend.stock_name] += parseFloat(dividend.amount);
       return acc;
     }, {} as Record<string, number>);
 

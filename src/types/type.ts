@@ -13,7 +13,7 @@ export interface Dividend {
   id: string;
   stock_name: string;
   type: StockType;
-  amount: number;
+  amount: string;
   date: string;
 }
 
