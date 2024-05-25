@@ -1,7 +1,5 @@
-export type TransactionType = "income" | "expense";
-export type DividendType = "japan" | "usa";
-export type JapanStock = "8901 - 積水ハウス" | "1605 - INPEX";
-export type UsaStock = "VZ - ベライゾン" | "MMM - 3M";
+export type StockType = "japan" | "usa";
+
 export type IncomeCategory = "給与" | "副収入" | "お小遣い";
 export type ExpenseCategory =
   | "食費"
@@ -11,22 +9,19 @@ export type ExpenseCategory =
   | "娯楽"
   | "交通費";
 
-export interface Transaction {
-  id: string;
-  date: string;
-  amount: number;
-  content: string;
-  type: TransactionType;
-  category: IncomeCategory | ExpenseCategory;
-}
-
 export interface Dividend {
   id: string;
   stock_name: string;
-  type: DividendType;
-  amount: number;
-  memo: string;
+  type: StockType;
+  amount: string;
   date: string;
+}
+
+export interface Stock {
+  id: string;
+  type: StockType;
+  code: string;
+  name: string;
 }
 
 // 削除確認

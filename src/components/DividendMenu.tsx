@@ -15,7 +15,7 @@ import {
 import NotesIcon from "@mui/icons-material/Notes";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DailySummary from "./DailySummary";
-import { Dividend } from "../types";
+import { Dividend } from "../types/type";
 import { formatCurrency } from "../utils/formatting";
 import { useAppContext } from "../context/AppContext";
 
@@ -128,11 +128,6 @@ const DividendMenu = ({
                               {dividend.stock_name}
                             </Typography>
                           </Grid>
-                          <Grid item xs={4}>
-                            <Typography variant="body2" gutterBottom>
-                              {dividend.memo}
-                            </Typography>
-                          </Grid>
                           <Grid item xs={4.5}>
                             <Typography
                               gutterBottom
@@ -142,7 +137,8 @@ const DividendMenu = ({
                                 wordBreak: "break-all",
                               }}
                             >
-                              ¥{formatCurrency(dividend.amount)}
+                              {dividend.type === "japan" ? "¥" : "$"}
+                              {formatCurrency(parseFloat(dividend.amount))}
                             </Typography>
                           </Grid>
                         </Grid>

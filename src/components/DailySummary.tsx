@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 
-import { Dividend } from "../types";
+import { Dividend } from "../types/type";
 import { financeCalculations } from "../utils/financeCalculations";
 import { formatCurrency } from "../utils/formatting";
 

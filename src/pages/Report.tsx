@@ -2,7 +2,7 @@ import { Grid, Paper } from "@mui/material";
 import MonthSelector from "../components/MonthSelector";
 import PieChart from "../components/PieChart";
 import BarChart from "../components/BarChart";
-import TransactionTable from "../components/TransactionTable";
+import DividendTable from "../components/DividendTable";
 
 const Report = () => {
   const commonPaperStyle = {
@@ -28,7 +28,7 @@ const Report = () => {
         </Paper>
       </Grid>
       <Grid item xs={12}>
-        <TransactionTable />
+        <DividendTable />
       </Grid>
     </Grid>
   );

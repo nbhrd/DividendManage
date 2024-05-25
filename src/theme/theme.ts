@@ -11,7 +11,7 @@ import {
   pink,
   purple,
 } from "@mui/material/colors";
-import { ExpenseCategory, IncomeCategory } from "../types";
+import { ExpenseCategory, IncomeCategory } from "../types/type";
 
 declare module "@mui/material/styles" {
   interface Palette {

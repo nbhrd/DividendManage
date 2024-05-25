@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useContext, useState } from "react";
-import { Dividend } from "../types";
+import { Dividend, Stock, StockType } from "../types/type";
 import { useMediaQuery, useTheme } from "@mui/material";
-import { DividendSchema } from "../validations/schema";
+import { DividendSchema } from "../validations/dividendSchema";
 import {
   addDoc,
   collection,
@@ -15,8 +15,12 @@ import { isFireStoreError } from "../utils/errorHandling";
 interface AppContextType {
   dividends: Dividend[];
   setDividends: React.Dispatch<React.SetStateAction<Dividend[]>>;
+  stocks: Stock[];
+  setStocks: React.Dispatch<React.SetStateAction<Stock[]>>;
   currentMonth: Date;
   setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
+  usdJpyRate: string;
+  setUsdJpyRate: React.Dispatch<React.SetStateAction<string>>;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   isMobile: boolean;
@@ -34,7 +38,10 @@ export const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   const [dividends, setDividends] = useState<Dividend[]>([]);
+  const [stocks, setStocks] = useState<Stock[]>([]);
+
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [usdJpyRate, setUsdJpyRate] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -113,8 +120,12 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
       value={{
         dividends,
         setDividends,
+        stocks,
+        setStocks,
         currentMonth,
         setCurrentMonth,
+        usdJpyRate,
+        setUsdJpyRate,
         isLoading,
         setIsLoading,
         isMobile,

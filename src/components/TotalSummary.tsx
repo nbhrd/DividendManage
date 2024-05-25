@@ -3,21 +3,17 @@ import TripOriginIcon from "@mui/icons-material/TripOrigin";
 import PublicIcon from "@mui/icons-material/Public";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import { financeCalculations } from "../utils/financeCalculations";
-import { formatCurrency, formatMonth } from "../utils/formatting";
-
-import useMonthlyDividends from "../hooks/useMonthlyDividends";
+import { formatCurrency } from "../utils/formatting";
 import { useAppContext } from "../context/AppContext";
-import { format } from "date-fns";
 
-const MonthlySummary = () => {
-  const monthlyDividends = useMonthlyDividends();
-  const { currentMonth, usdJpyRate } = useAppContext();
-  const { japan, usa, balance } = financeCalculations(monthlyDividends);
+const TotalSummary = () => {
+  const { dividends, usdJpyRate } = useAppContext();
+  const { japan, usa, balance } = financeCalculations(dividends);
 
   return (
     <>
       <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-        {`${format(currentMonth, "M")}月合計`}
+        総額
       </Typography>
       <Grid container spacing={{ xs: 1, sm: 2 }} mb={2}>
         {/* 収入 */}
@@ -117,4 +113,4 @@ const MonthlySummary = () => {
   );
 };
 
-export default MonthlySummary;
+export default TotalSummary;
