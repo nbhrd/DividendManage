@@ -22,7 +22,7 @@ import { FirebaseError } from "firebase/app";
 const drawerWidth = 240;
 
 export default function AppLayout() {
-  const { setDividends, setStocks, usdJPY, setUsdJpy, setIsLoading } =
+  const { setDividends, setStocks, usdJpyRate, setUsdJpyRate, setIsLoading } =
     useAppContext();
   const { user } = useAuthContext();
 
@@ -60,31 +60,33 @@ export default function AppLayout() {
   }, [user]);
 
   React.useEffect(() => {
-    const fetchStocks = async () => {
-      try {
-        const q = query(
-          collection(db, "Stocks"),
-          where("user_id", "==", user?.uid)
-        );
-        const querySnapshot = await getDocs(q);
-        const stocksData = querySnapshot.docs.map((doc) => {
-          return {
-            ...doc.data(),
-            id: doc.id,
-          } as Stock;
-        });
+    if (user) {
+      const fetchStocks = async () => {
+        try {
+          const q = query(
+            collection(db, "Stocks"),
+            where("user_id", "==", user?.uid)
+          );
+          const querySnapshot = await getDocs(q);
+          const stocksData = querySnapshot.docs.map((doc) => {
+            return {
+              ...doc.data(),
+              id: doc.id,
+            } as Stock;
+          });
 
-        setStocks(stocksData);
-      } catch (err) {
-        if (isFireStoreError(err)) {
-          console.error("firestoreのエラー:", err);
-        } else {
-          console.error("一般的なエラー:", err);
+          setStocks(stocksData);
+        } catch (err) {
+          if (isFireStoreError(err)) {
+            console.error("firestoreのエラー:", err);
+          } else {
+            console.error("一般的なエラー:", err);
+          }
+        } finally {
         }
-      } finally {
-      }
-    };
-    fetchStocks();
+      };
+      fetchStocks();
+    }
   }, [user]);
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -114,10 +116,6 @@ export default function AppLayout() {
         console.error(e);
       }
     }
-  };
-
-  const handleUsdJpy = (value: string) => {
-    setUsdJpy(value);
   };
 
   return (
@@ -161,8 +159,8 @@ export default function AppLayout() {
                   label="ドル円"
                   variant="filled"
                   size="small"
-                  value={usdJPY}
-                  onChange={(e) => handleUsdJpy(e.target.value)}
+                  value={usdJpyRate}
+                  onChange={(e) => setUsdJpyRate(e.target.value)}
                   sx={{
                     marginLeft: 5,
                     borderRadius: "5px",

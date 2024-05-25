@@ -166,6 +166,9 @@ const StockForm = ({ isDialogOpen, setIsDialogOpen }: StockFormProps) => {
             <Button type="submit" variant="contained" fullWidth>
               登録
             </Button>
+            <Button onClick={onCloseForm} variant="outlined" fullWidth>
+              キャンセル
+            </Button>
           </Stack>
         </Box>
       </DialogContent>

@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Box } from "@mui/material";
 import MonthlySummary from "../components/MonthlySummary";
+import TotalSummary from "../components/TotalSummary";
 import Calendar from "../components/Calendar";
 import DividendMenu from "../components/DividendMenu";
 import DividendForm from "../components/DividendForm";
@@ -76,6 +77,7 @@ const Home = () => {
     <Box sx={{ display: "flex" }}>
       {/* 左側コンテンツ */}
       <Box sx={{ flexGrow: 1 }}>
+        <TotalSummary />
         <MonthlySummary />
         <Calendar
           today={today}

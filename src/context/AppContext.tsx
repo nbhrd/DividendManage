@@ -19,8 +19,8 @@ interface AppContextType {
   setStocks: React.Dispatch<React.SetStateAction<Stock[]>>;
   currentMonth: Date;
   setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
-  usdJPY: string;
-  setUsdJpy: React.Dispatch<React.SetStateAction<string>>;
+  usdJpyRate: string;
+  setUsdJpyRate: React.Dispatch<React.SetStateAction<string>>;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   isMobile: boolean;
@@ -41,7 +41,7 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   const [stocks, setStocks] = useState<Stock[]>([]);
 
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [usdJPY, setUsdJpy] = useState("");
+  const [usdJpyRate, setUsdJpyRate] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -124,8 +124,8 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
         setStocks,
         currentMonth,
         setCurrentMonth,
-        usdJPY,
-        setUsdJpy,
+        usdJpyRate,
+        setUsdJpyRate,
         isLoading,
         setIsLoading,
         isMobile,
