@@ -70,7 +70,11 @@ const TotalSummary = () => {
                 }}
               >
                 ${usa}
-                {usdJpyRate ? <div>¥{usa * parseInt(usdJpyRate)}</div> : ""}
+                {usdJpyRate ? (
+                  <div>¥{(usa * parseInt(usdJpyRate)).toFixed(2)}</div>
+                ) : (
+                  ""
+                )}
               </Typography>
             </CardContent>
           </Card>
