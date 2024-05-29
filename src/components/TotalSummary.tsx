@@ -9,7 +9,7 @@ import { useAppContext } from "../context/AppContext";
 const TotalSummary = () => {
   const { dividends, usdJpyRate } = useAppContext();
   const { japan, usa, balance } = financeCalculations(dividends);
-  console.log(usdJpyRate);
+
   return (
     <>
       <Typography variant="h5" sx={{ fontWeight: "bold" }}>
