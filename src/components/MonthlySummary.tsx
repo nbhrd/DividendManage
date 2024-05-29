@@ -74,7 +74,11 @@ const MonthlySummary = () => {
                 }}
               >
                 ${usa}
-                {usdJpyRate ? <div>¥{usa * parseInt(usdJpyRate)}</div> : ""}
+                {usdJpyRate ? (
+                  <div>¥{(usa * parseInt(usdJpyRate)).toFixed(2)}</div>
+                ) : (
+                  ""
+                )}
               </Typography>
             </CardContent>
           </Card>
@@ -104,7 +108,7 @@ const MonthlySummary = () => {
                 }}
               >
                 {usdJpyRate ? (
-                  <div>¥{usa * parseInt(usdJpyRate) + japan}</div>
+                  <div>¥{(usa * parseInt(usdJpyRate) + japan).toFixed(2)}</div>
                 ) : (
                   ""
                 )}
