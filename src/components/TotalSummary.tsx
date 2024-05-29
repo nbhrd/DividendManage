@@ -104,7 +104,7 @@ const TotalSummary = () => {
                 }}
               >
                 {usdJpyRate ? (
-                  <div>¥{usa * parseInt(usdJpyRate) + japan}</div>
+                  <div>¥{(usa * parseInt(usdJpyRate) + japan).toFixed(2)}</div>
                 ) : (
                   ""
                 )}
