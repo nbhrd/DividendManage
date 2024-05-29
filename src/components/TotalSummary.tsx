@@ -9,7 +9,7 @@ import { useAppContext } from "../context/AppContext";
 const TotalSummary = () => {
   const { dividends, usdJpyRate } = useAppContext();
   const { japan, usa, balance } = financeCalculations(dividends);
-
+  console.log(usdJpyRate);
   return (
     <>
       <Typography variant="h5" sx={{ fontWeight: "bold" }}>
@@ -69,7 +69,7 @@ const TotalSummary = () => {
                   fontSize: { xs: ".8rem", sm: "1rem", md: "1.2rem" },
                 }}
               >
-                ${usa}
+                ${usa.toFixed(2)}
                 {usdJpyRate ? (
                   <div>¥{(usa * parseInt(usdJpyRate)).toFixed(2)}</div>
                 ) : (

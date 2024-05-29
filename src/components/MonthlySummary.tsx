@@ -73,7 +73,7 @@ const MonthlySummary = () => {
                   fontSize: { xs: ".8rem", sm: "1rem", md: "1.2rem" },
                 }}
               >
-                ${usa}
+                ${usa.toFixed(2)}
                 {usdJpyRate ? (
                   <div>¥{(usa * parseInt(usdJpyRate)).toFixed(2)}</div>
                 ) : (
