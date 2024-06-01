@@ -78,12 +78,15 @@ const DividendForm = ({
   };
 
   const currentType = watch("type");
-  let currentStocks: Stock[] = stocks.filter(
-    (stock) => stock.type === currentType
-  );
+
+  let currentStocks: Stock[] = stocks
+    .filter((stock) => stock.type === currentType)
+    .sort((a, b) => a.code.localeCompare(b.code));
 
   useEffect(() => {
-    currentStocks = stocks.filter((stock) => stock.type === currentType);
+    currentStocks = stocks
+      .filter((stock) => stock.type === currentType)
+      .sort((a, b) => a.code.localeCompare(b.code));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentType]);
 
