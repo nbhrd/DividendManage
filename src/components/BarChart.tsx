@@ -15,6 +15,7 @@ import { Box, Typography, useTheme } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useAppContext } from "../context/AppContext";
 import useMonthlyDividends from "../hooks/useMonthlyDividends";
+import { Dividend } from "../types/type";
 
 ChartJS.register(
   CategoryScale,
@@ -26,8 +27,45 @@ ChartJS.register(
 );
 
 const BarChart = () => {
-  const { isLoading } = useAppContext();
+  const { isLoading, dividends } = useAppContext();
 
+  console.log(dividends);
+
+  interface DataItem {
+    amount: string;
+    date: string;
+    id: string;
+    stock_name: string;
+    type: string;
+    user_id: string;
+  }
+
+  const groupByMonth = (data: Dividend[]) => {
+    return data.reduce((acc, item) => {
+      const date = new Date(item.date);
+      const yearMonth = `${date.getFullYear()}-${(
+        "0" +
+        (date.getMonth() + 1)
+      ).slice(-2)}`; // 例: "2024-02"
+
+      if (!acc[yearMonth]) {
+        acc[yearMonth] = [];
+      }
+      acc[yearMonth].push(item);
+      return acc;
+    }, {} as { [key: string]: Dividend[] });
+  };
+
+  const groupedData = groupByMonth(dividends);
+  console.log(groupedData);
+  // {
+  //   amount: "23.81";
+  //   date: "2024-02-05";
+  //   id: "5K8YuLQ859teI3ZcCM34";
+  //   stock_name: "VERIZON COMMU.";
+  //   type: "usa";
+  //   user_id: "4EuCTg258uh3xTXdP4qilIW5k2B3";
+  // }
   const monthlyDividends = useMonthlyDividends();
   const theme = useTheme();
   const options = {

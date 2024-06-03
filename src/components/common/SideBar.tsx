@@ -37,6 +37,7 @@ const SideBar = ({
   const MenuItems: menuItem[] = [
     { text: "ホーム", path: "/", icon: HomeIcon },
     { text: "レポート", path: "/report", icon: EqualizerIcon },
+    { text: "レポート2", path: "/report2", icon: EqualizerIcon },
   ];
 
   const baseLinkStyle: CSSProperties = {
