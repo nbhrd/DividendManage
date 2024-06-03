@@ -22,7 +22,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthContext } from "../context/AuthContext";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase";
-import { Stock } from "../types/type";
+import { Stock, StockType } from "../types/type";
 import { isFireStoreError } from "../utils/errorHandling";
 import { useAppContext } from "../context/AppContext";
 
@@ -52,6 +52,11 @@ const StockForm = ({ isDialogOpen, setIsDialogOpen }: StockFormProps) => {
     },
     resolver: zodResolver(stockSchema),
   });
+
+  const japanUsaToggle = (type: StockType) => {
+    setValue("type", type);
+    setValue("name", "");
+  };
 
   const onCloseForm = () => {
     setIsDialogOpen(false);
@@ -107,7 +112,35 @@ const StockForm = ({ isDialogOpen, setIsDialogOpen }: StockFormProps) => {
           {/* USERID */}
           <input type="hidden" {...register("user_id", { value: user?.uid })} />
 
+          {/* 銘柄タイプ */}
           <Stack spacing={2}>
+            <Controller
+              name="type"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <ButtonGroup fullWidth>
+                    <Button
+                      variant={
+                        field.value === "japan" ? "contained" : "outlined"
+                      }
+                      color="primary"
+                      onClick={() => japanUsaToggle("japan")}
+                    >
+                      日本株
+                    </Button>
+                    <Button
+                      variant={field.value === "usa" ? "contained" : "outlined"}
+                      color="error"
+                      onClick={() => japanUsaToggle("usa")}
+                    >
+                      米国株
+                    </Button>
+                  </ButtonGroup>
+                );
+              }}
+            />
+
             {/* 銘柄コード */}
             <Controller
               name="code"
@@ -135,31 +168,6 @@ const StockForm = ({ isDialogOpen, setIsDialogOpen }: StockFormProps) => {
                   error={!!errors.name}
                   helperText={errors.name?.message}
                 />
-              )}
-            />
-
-            {/* 銘柄タイプ */}
-            <Controller
-              name="type"
-              control={control}
-              render={({ field }) => (
-                <FormControl fullWidth error={!!errors.type}>
-                  <InputLabel id="category-select-label">タイプ</InputLabel>
-                  <Select
-                    {...field}
-                    labelId="category-select-label"
-                    id="category-select"
-                    label="銘柄名"
-                  >
-                    <MenuItem key="japan" value="japan">
-                      日本株
-                    </MenuItem>
-                    <MenuItem key="usa" value="usa">
-                      米国株
-                    </MenuItem>
-                  </Select>
-                  <FormHelperText>{errors.type?.message}</FormHelperText>
-                </FormControl>
               )}
             />
 
