@@ -15,12 +15,12 @@ import {
   Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import React from "react";
+import React, { useEffect } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { StockSchema, stockSchema } from "../validations/stockSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthContext } from "../context/AuthContext";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { Stock, StockType } from "../types/type";
 import { isFireStoreError } from "../utils/errorHandling";
@@ -29,9 +29,14 @@ import { useAppContext } from "../context/AppContext";
 interface StockFormProps {
   isDialogOpen: boolean;
   setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedStock: Stock | null;
 }
 
-const StockForm = ({ isDialogOpen, setIsDialogOpen }: StockFormProps) => {
+const StockForm = ({
+  isDialogOpen,
+  setIsDialogOpen,
+  selectedStock,
+}: StockFormProps) => {
   const { user } = useAuthContext();
   const { stocks, setStocks } = useAppContext();
 
@@ -63,26 +68,43 @@ const StockForm = ({ isDialogOpen, setIsDialogOpen }: StockFormProps) => {
   };
 
   const onSubmit: SubmitHandler<StockSchema> = async (data) => {
-    try {
-      const docRef = await addDoc(collection(db, "Stocks"), {
-        ...data,
-      });
+    setIsDialogOpen(false);
+    if (selectedStock) {
+      try {
+        const docRef = doc(db, "Stocks", selectedStock.id);
+        await updateDoc(docRef, data);
+        // フロント更新
+        const updatedStocks = stocks.map((t) =>
+          t.id === selectedStock.id ? { ...t, ...data } : t
+        ) as Stock[];
+        setStocks(updatedStocks);
+      } catch (err) {
+        if (isFireStoreError(err)) {
+          console.error("firestoreのエラー:", err);
+        } else {
+          console.error("一般的なエラー:", err);
+        }
+      }
+    } else {
+      try {
+        const docRef = await addDoc(collection(db, "Stocks"), {
+          ...data,
+        });
 
-      const newStock = {
-        id: docRef.id,
-        ...data,
-      };
+        const newStock = {
+          id: docRef.id,
+          ...data,
+        };
 
-      setStocks((preStocks) => [...preStocks, newStock]);
-    } catch (err) {
-      if (isFireStoreError(err)) {
-        console.error("firestoreのエラー:", err);
-      } else {
-        console.error("一般的なエラー:", err);
+        setStocks((preStocks) => [...preStocks, newStock]);
+      } catch (err) {
+        if (isFireStoreError(err)) {
+          console.error("firestoreのエラー:", err);
+        } else {
+          console.error("一般的なエラー:", err);
+        }
       }
     }
-
-    setIsDialogOpen(false);
 
     reset({
       code: "",
@@ -90,6 +112,21 @@ const StockForm = ({ isDialogOpen, setIsDialogOpen }: StockFormProps) => {
       type: "japan",
     });
   };
+
+  // フォーム内容を更新
+  useEffect(() => {
+    if (selectedStock) {
+      setValue("type", selectedStock.type);
+      setValue("code", selectedStock.code);
+      setValue("name", selectedStock.name);
+    } else {
+      reset({
+        type: "japan",
+        code: "",
+        name: "",
+      });
+    }
+  }, [selectedStock, setValue, reset]);
 
   return (
     <Dialog open={isDialogOpen} onClose={onCloseForm} fullWidth maxWidth={"sm"}>
@@ -171,8 +208,17 @@ const StockForm = ({ isDialogOpen, setIsDialogOpen }: StockFormProps) => {
               )}
             />
 
-            <Button type="submit" variant="contained" fullWidth>
-              登録
+            <Button
+              type="submit"
+              variant="contained"
+              fullWidth
+              color={
+                selectedStock && selectedStock.type === "japan"
+                  ? "primary"
+                  : "error"
+              }
+            >
+              {selectedStock ? "更新" : "登録"}
             </Button>
             <Button onClick={onCloseForm} variant="outlined" fullWidth>
               キャンセル

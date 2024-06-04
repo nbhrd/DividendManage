@@ -155,6 +155,7 @@ export default function AppLayout() {
                 >
                   配当管理
                 </Typography>
+                <div style={{ flexGrow: 1 }}></div>
                 <TextField
                   label="ドル円"
                   variant="filled"
@@ -163,11 +164,11 @@ export default function AppLayout() {
                   onChange={(e) => setUsdJpyRate(e.target.value)}
                   sx={{
                     marginLeft: 5,
+                    width: "80px",
                     borderRadius: "5px",
                     backgroundColor: "white",
                   }}
                 />
-                <div style={{ flexGrow: 1 }}></div>
                 <Button onClick={handleLogout} variant="outlined">
                   <LogoutIcon sx={{ color: "white" }} />
                 </Button>

@@ -55,14 +55,14 @@ const DailySummary = ({ dailyDividends, columns }: DailySummaryProps) => {
             </CardContent>
           </Card>
         </Grid>
-        {/* 残高 */}
+        {/* 合計 */}
         <Grid item xs={isThreeColumnsLayout ? 4 : 12} display={"flex"}>
           <Card
             sx={{ bgcolor: (theme) => theme.palette.grey[100], flexGrow: 1 }}
           >
             <CardContent>
               <Typography variant="body2" noWrap textAlign="center">
-                残高
+                合計
               </Typography>
               <Typography
                 color={(theme) => theme.palette.balanceColor.main}

@@ -119,7 +119,7 @@ const DividendMenu = ({
                           alignItems="center"
                           wrap="wrap"
                         >
-                          <Grid item xs={2.5}>
+                          <Grid item xs={6}>
                             <Typography
                               variant="caption"
                               display="block"
@@ -128,7 +128,7 @@ const DividendMenu = ({
                               {dividend.stock_name}
                             </Typography>
                           </Grid>
-                          <Grid item xs={4.5}>
+                          <Grid item xs={6}>
                             <Typography
                               gutterBottom
                               textAlign={"right"}
