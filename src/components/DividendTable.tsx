@@ -221,7 +221,7 @@ export default function DividendTable() {
             color={theme.palette.expenseColor.main}
           />
           <FinancialItem
-            title={"残高"}
+            title={"合計"}
             value={balance}
             color={theme.palette.balanceColor.main}
           />

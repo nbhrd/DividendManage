@@ -43,11 +43,13 @@ function DividendTableHead() {
 interface StocksTableProps {
   isDialogOpen: boolean;
   setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedStock: React.Dispatch<React.SetStateAction<Stock | null>>;
 }
 
 export default function StocksTable({
   isDialogOpen,
   setIsDialogOpen,
+  setSelectedStock,
 }: StocksTableProps) {
   const [stockType, setStockType] = React.useState<StockType | "all">("all");
 
@@ -62,8 +64,9 @@ export default function StocksTable({
     setIsDialogOpen(true);
   };
 
-  const onEditStock = (id: string) => {
-    console.log(id);
+  const onUpdateStock = (stock: Stock) => {
+    setSelectedStock(stock);
+    setIsDialogOpen(true);
   };
 
   const onDeleteStock = async (id: string) => {
@@ -226,9 +229,7 @@ export default function StocksTable({
                     </TableCell>
                     <TableCell align="left">{stock.name}</TableCell>
                     <TableCell align="right">
-                      <Button onClick={() => onEditStock(stock.id)}>
-                        編集
-                      </Button>
+                      <Button onClick={() => onUpdateStock(stock)}>編集</Button>
                       <Button onClick={() => onDeleteStock(stock.id)}>
                         削除
                       </Button>
